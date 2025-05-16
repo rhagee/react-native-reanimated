@@ -181,7 +181,7 @@ void installJsiFunction(
   auto clb = createHostFunction(function);
   auto argsCount = sizeof...(Args) - takes_runtime<Args...>::value;
   jsi::Value jsiFunction = jsi::Function::createFromHostFunction(
-      rt, jsi::PropNameID::forAscii(rt, name.data()), argsCount, clb);
+      rt, jsi::PropNameID::forAscii(rt, reinterpret_cast<const char *>(name.data())), argsCount, clb);
   rt.global().setProperty(rt, name.data(), jsiFunction);
 }
 
